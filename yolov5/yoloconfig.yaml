@@ -1,8 +1,0 @@
-path: /home/ryanscodingden/IPS images
-train: ''
-val: ''
-test: /home/ryan/IPS-DATA/Data/test/images
-nc: 2
-names:
-- Tree_group
-- Tree
