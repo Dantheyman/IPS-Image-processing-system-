@@ -6,6 +6,9 @@ provide valuable insight to the user documentation can be found here https://git
 The system can currently be used to train a model to detect trees, as well as automatically creating datasets and creating annotations. 
 
 
+## Models
+This system utilizes several models, firstly Sam2 segmentation and pre existing YOLOv8 detection models. 
+They are not included in this repo and need to be downloaded/sourced separately
 
-
-
+## Machine assumption
+In the current system its expected that DMS and IPS are on the same machine, to allow separately, model and dataset interactions will need to be changed. 
