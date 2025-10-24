@@ -81,8 +81,6 @@ def convert_masks_to_yolo_annotations(masks, image_shape, class_id=0):
     return yolo_annotations
 
 
-
-
 #saves annotations  to the database 
 def save_annotations(annotation, image_path,classes):
     
@@ -90,17 +88,13 @@ def save_annotations(annotation, image_path,classes):
     photo_id = os.path.splitext(os.path.basename(image_path))[0]
 
     db.upload_annotations(photo_id,classes,annotation)
-
-    
-    
+   
 
 #determines if image contains a tree
 def is_tree(image):
 
     ################# replace with api request once model deployment is complete ##########
     model_paths = ["checkpoints/best_vX.pt","checkpoints/best_vM.pt","checkpoints/best_vL.pt","checkpoints/best_vS.pt"]
-    # model_paths = ["checkpoints/best_vX.pt"]
-    ##############################################
     conf_thresh = 0.4
     agreement_threshold = 0.25
 
@@ -138,7 +132,7 @@ def is_tree(image):
     return agreement_ratio >= agreement_threshold
 
 
-#extacts only the masked region so that isTree is only looking at that region 
+#extracts only the masked region so that isTree is only looking at that region 
 def extract_masked_region(image, mask):
 
     # image: numpy array (H, W, C)

@@ -11,7 +11,10 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QCloseEvent
 from system import system_instance
 
+#this form shows info for training models
 class TrainModelConfigForm(QWidget):
+
+    #build the form
     def __init__(self,prepare_save_callback):
         super().__init__()
 
@@ -107,7 +110,7 @@ class TrainModelConfigForm(QWidget):
         }
 
             
-            
+    #add extra configs to form    
     def add_extra_param(self):
         # Create row
         h_layout = QHBoxLayout()
@@ -143,7 +146,7 @@ class TrainModelConfigForm(QWidget):
         self.extra_params_layout.addLayout(h_layout)
         self.extra_fields.append((param_name_combo, value_widget_container, h_layout))
 
-
+    #remove a config from the form
     def handle_remove(self, param_name_combo, value_widget_container, h_layout, remove_btn):
         # Remove widgets properly
         for w in (param_name_combo, value_widget_container[0], remove_btn):
@@ -153,7 +156,7 @@ class TrainModelConfigForm(QWidget):
         self.extra_params_layout.removeItem(h_layout)
         self.extra_fields = [t for t in self.extra_fields if t[2] is not h_layout]
 
-
+    #handles a config container changing type
     def on_param_change(self, value_widget_container, param_name_combo, h_layout):
         old_widget = value_widget_container[0]
         name = param_name_combo.currentText()
@@ -185,7 +188,7 @@ class TrainModelConfigForm(QWidget):
         h_layout.insertWidget(3, new_widget)
         new_widget.show()
 
-
+    #handles submit and training of models
     def handle_submit(self):
         config = {}
 
@@ -264,6 +267,7 @@ class TrainModelConfigForm(QWidget):
             print(e)
             gui.show_alert(QMessageBox.Icon.Warning, "Training Error", "", "An error occoured while the model was training")
 
+    #validates the config/form
     def validate_config(self,config):
         errors = []
         

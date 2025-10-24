@@ -1,5 +1,6 @@
 import db
 
+#this class holds variables that need to be accessed by wide range of forms 
 class System:
     def __init__(self):
         
@@ -14,7 +15,7 @@ class System:
 
     
        
-
+#holds info for loaded dataset
 class Dataset:
     def  __init__(self, id,):
         self.id = id

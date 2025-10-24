@@ -2,11 +2,10 @@ from PyQt6.QtWidgets import   QListWidgetItem
 from PyQt6.QtCore import  pyqtSignal, QObject
 from PyQt6.QtGui import QColor
 
+#this file handles showing process progress to users
 
 
-
-
-
+#This class handles displaying dataset status into the list widget in main form
 class DatasetStatusDisplay(QObject):
 
     finished = pyqtSignal()
@@ -17,10 +16,12 @@ class DatasetStatusDisplay(QObject):
         self.list_widget = list_widget
         self.status_label = status_label
 
+    #clears display
     def clear_display(self):
         """Clear the metrics display"""
         self.list_widget.clear()
 
+    #entry point for adding updates
     def update_progress(self, status_text, complete):
     
     
@@ -30,6 +31,7 @@ class DatasetStatusDisplay(QObject):
         else:
             self.add_status_message(status_text)
 
+    # adds message to list
     def add_status_message(self, message, colour=None):
     
         
@@ -41,7 +43,7 @@ class DatasetStatusDisplay(QObject):
         # Auto-scroll to bottom
         self.list_widget.scrollToBottom()
     
-        
+#this class handles showing metrics for validating models
 class ValidateMetricDisplay:
         def __init__(self, list_widget, status_label=None):
             self.list_widget = list_widget

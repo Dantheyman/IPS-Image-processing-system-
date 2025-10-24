@@ -107,12 +107,7 @@ class MainWindow(QtWidgets.QMainWindow):
      
     
 
-
-
-
-
-
-
+# run the application
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
 window.show()

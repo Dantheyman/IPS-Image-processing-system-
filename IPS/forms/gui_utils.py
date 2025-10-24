@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMessageBox   
 
-
+#shows alert popup to user
 def show_alert(icon,window_title,text,informative_text,callback = None):
         msg = QMessageBox()
         msg.setIcon(icon)   # Information, Warning, Critical, Question

@@ -11,7 +11,7 @@ from PyQt6.QtGui import QCloseEvent
 # This Class is responsible for handling the form popup for creation of a dataset
 class DatasetCreatorForm(QWidget):
 
-
+    #build the form
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Dynamic Search Form")
@@ -94,7 +94,7 @@ class DatasetCreatorForm(QWidget):
         self.cancel_btn.clicked.connect(self.on_cancel)
         self.create_btn.clicked.connect(self.on_create)
 
-    #adds a exact search to the form 
+    # adds a exact search to the form 
     def add_exact_field(self):
         # Field 
         field_input = QLineEdit()
@@ -122,7 +122,7 @@ class DatasetCreatorForm(QWidget):
 
         self.sync_search_input_widths()
 
-    #Adds a range search to the form
+    # Adds a range search to the form
     def add_range_field(self):
         # Search Type input (text)
         field_input = QLineEdit()
@@ -154,7 +154,7 @@ class DatasetCreatorForm(QWidget):
 
         self.sync_search_input_widths()
 
-    #removes a row from form 
+    # removes a row from form 
     def remove_row(self, widget):
         for i in range(self.form_layout.rowCount()):
             field_widget = self.form_layout.itemAt(i, QFormLayout.ItemRole.FieldRole).widget()
@@ -181,10 +181,11 @@ class DatasetCreatorForm(QWidget):
         for input in self.search_type_inputs:
             input.setFixedWidth(max_width)
 
-    #closes the form when cancel button is hit 
+    # closes the form when cancel button is hit 
     def on_cancel(self):
         self.close()
 
+    # when the create button is clicked, create a dataset
     def on_create(self):
         # Gather form input values
         form_data = {"exact": {}, "range": {}}
@@ -247,11 +248,12 @@ class DatasetCreatorForm(QWidget):
         self.hide()
 
 
-
+    #displays error if a unhandled exception happens in a worker thread
     def handle_worker_error(self,e):
         gui_utils.show_alert(QMessageBox.Icon.Warning, "Dataset Creation Error", "", f"{e}")
         self.show()  
 
+    #closes the form completely when the worker thread completes successfully
     def handle_worker_completion(self):
         self.close()
 
@@ -315,6 +317,7 @@ class DatasetCreatorForm(QWidget):
         
         return False, "Percentages must add to 100"
     
+    #indicates to the system that the process is complete 
     def closeEvent(self, event: QCloseEvent):
 
         system_instance.process_going = False

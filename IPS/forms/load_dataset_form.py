@@ -11,6 +11,7 @@ from PyQt6.QtGui import QCloseEvent
 # This Class is responsible for handling the form popup for creation of a dataset
 class DatasetLoaderForm(QWidget):
 
+    #build the form
     def __init__(self):
         
         super().__init__()
@@ -48,9 +49,11 @@ class DatasetLoaderForm(QWidget):
         self.cancel_btn.clicked.connect(self.on_cancel)
         self.load_btn.clicked.connect(self.on_load)
 
+    #closes form on cancel click
     def on_cancel(self):
         self.close()
 
+    # loads the dataset selected
     def on_load(self):
         dataset_name = self.name_input.currentText()
 
@@ -66,13 +69,17 @@ class DatasetLoaderForm(QWidget):
         self.worker.start()
         self.hide()
     
+    #handles worker completion
     def handle_worker_completion(self):
         self.close()
 
+
+    #handles uncaught exceptions in worker thread
     def handle_worker_error(self,e):
         gui_utils.show_alert(QMessageBox.Icon.Warning, "Dataset Creation Error", "", f"{e}")  
         self.show()  
 
+    #indicates to the system that the process is complete 
     def closeEvent(self, event: QCloseEvent):
 
         system_instance.process_going = False

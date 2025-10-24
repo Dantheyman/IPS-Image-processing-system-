@@ -2,6 +2,10 @@ import db
 from config import WORKING_DIR
 from ultralytics import YOLO
 
+# Validates a model against a dataset
+# param: model_name: name of model to be validated
+# param: dataset_name: name of dataset to be used
+# param: worker_thread: instance of a validation worker thread, used for passing info to GUI
 def validate_model(model_name, dataset_name, worker_thread):
 
     worker_thread.status_update.emit("Loading Dataset:")

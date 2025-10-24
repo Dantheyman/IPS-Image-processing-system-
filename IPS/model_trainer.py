@@ -4,7 +4,7 @@ import db
 from config import WORKING_DIR
 from ultralytics import YOLO
 
-
+#adds additional data not specified to user to the config doc
 def complete_config(config):
     
     runs_path = os.path.join(WORKING_DIR,"runs")
@@ -20,6 +20,7 @@ def complete_config(config):
     config["model"] = db.get_model_path(config["model"])
     return config
 
+#trains a model using the config
 def train_model(config,worker_thread):
         try:
             # Suppress YOLO verbose output

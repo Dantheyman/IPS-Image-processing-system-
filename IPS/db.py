@@ -32,7 +32,7 @@ def create_dataset(name,filters,split,classes):
     else:
         raise Exception("An error occoured while creating dataset")
 
-
+#load all dataset photos into working dir
 def load_dataset_photos(dataset_id):
     """
     Loads dataset photos into the working directory 
@@ -74,7 +74,7 @@ def get_dataset_id(dataset_name):
         raise Exception("Error Retrieving Dataset ID from Database")   
 
 
-#retrievs all dataset names in alphabetical order
+#retrieves all dataset names in alphabetical order
 def get_all_dataset_names():
     
     response = requests.get(DATABASE_URL + "/datasets/names")
@@ -127,7 +127,10 @@ def remove_photo_from_dataset(dataset_id,photo_id):
 
 ######################## Annotation Interactions ########################
 
-
+#uploads annotations to DMS
+#param: photo_id: id of photo being annotated for
+#param: classes: list of classes being annotated for 
+#param: annotation: String of yolo annotations
 def upload_annotations(photo_id,classes,annotation):
     
 
@@ -142,7 +145,7 @@ def upload_annotations(photo_id,classes,annotation):
     if response.status_code != 200:
         raise Exception("An error occoured uploading annoatations")
 
-
+#gets a annotation for a given photo
 def get_annotations(photo_id):
     params = {"photo_id" : photo_id}
     response = requests.get(DATABASE_URL + "/annotations/photo", params = params)
@@ -159,6 +162,7 @@ def get_annotations(photo_id):
 
 ######################## Model Interactions ########################
 
+#gets list of all model metadata
 def get_all_models():
     response = requests.get(DATABASE_URL+"/models")
 
@@ -169,7 +173,7 @@ def get_all_models():
         print(f"Failed. Status code: {response.status_code}")
         raise Exception("Error Retrieving Model Data")
 
-
+#gets a list of all model names
 def get_all_model_names():
     models = get_all_models()
 
@@ -193,6 +197,7 @@ def get_all_model_names():
    
     return ordered
 
+#checks if the model name already exists
 def model_name_exists(model_name):
     params = {"model_name": model_name}
     response = requests.get(DATABASE_URL+"/models/name", params = params)
@@ -205,6 +210,7 @@ def model_name_exists(model_name):
         print(f"Failed Status code: {response.status_code}")
         raise Exception("Error Retrieving Model Data")
 
+#gets path to model, assumes DMS and IPS on same machine. 
 def get_model_path(model_name):
     
     params = {"model_name": model_name}
@@ -217,7 +223,8 @@ def get_model_path(model_name):
         print(f"Failed Status code: {response.status_code}")
         raise Exception("Error Retrieving Model Data")
 
-
+#saves model metadata and weights to DMS
+#param: model_doc: dict of model metadata
 def save_model(model_doc):
 
     response = requests.post(DATABASE_URL+"/models",json = model_doc)
@@ -232,6 +239,9 @@ def save_model(model_doc):
         print(f"Failed Status code: {response.status_code}")
         raise Exception("Error Retrieving Model Data")
 
+#uploads model weights to DMS
+#param: model_id: id of model
+#param: model_path: current path of weights to be uploaded
 def upload_model(model_id,model_path):
    
     # Open file in binary mode

@@ -7,6 +7,8 @@ import db
 from PyQt6.QtCore import QThread, pyqtSignal
 from system import system_instance
 
+#this class handles dataset loading and creating
+#separate thread from GUI
 class DatasetWorker(QThread):
 
     progress = pyqtSignal(str,bool)    
@@ -49,7 +51,8 @@ class DatasetWorker(QThread):
             print(tb_str)
             self.error.emit(str(e)) 
 
-
+#this class handles model validation 
+#separate thread from GUI
 class ModelValidatorWorker(QThread):
 
     validation_finished = pyqtSignal(dict) # send final results
@@ -93,7 +96,8 @@ class ModelValidatorWorker(QThread):
 
         self.validation_finished.emit(results)
 
-
+#this class handles model training 
+#separate thread from GUI
 class ModelTrainerWorker(QThread):
     
 
@@ -232,10 +236,4 @@ class ModelTrainerWorker(QThread):
             
         except Exception as e:
             self.error_occurred.emit(f"Error in training completion: {str(e)}")
-
-
-
-
-
-
 
