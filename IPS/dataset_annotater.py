@@ -132,11 +132,12 @@ def is_tree(image):
     return agreement_ratio >= agreement_threshold
 
 
-#extracts only the masked region so that isTree is only looking at that region 
+#extracts only the masked region so that isTree is only looking at that region
+# image: numpy array (H, W, C)
+# mask: binary mask (H, W) 
 def extract_masked_region(image, mask):
 
-    # image: numpy array (H, W, C)
-    # mask: binary mask (H, W),
+
 
     # Ensure mask is boolean
     mask = mask.astype(bool)
